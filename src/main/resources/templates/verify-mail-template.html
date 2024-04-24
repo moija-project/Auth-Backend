@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.themeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moija 서비스 - 계정 활성화 안내</title>
+    <style>
+        /* 스타일링 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            background-color: #eaa9ff;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #eaa9ff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>안녕하세요. Moija 서비스입니다.</h1>
+        <p>가입해주셔서 감사합니다. 아래의 링크를 통해 계정을 활성화해주세요. </p>
+        <p>해당 링크의 유효기간은 메일 전송으로부터 20분입니다.</p>
+    </div>
+    <a th:href="${verification_url}" class="button">내 Moija 계정 활성화</a>
+</div>
+</body>
+</html>
