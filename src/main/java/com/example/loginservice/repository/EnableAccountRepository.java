@@ -10,5 +10,4 @@ import java.util.Optional;
 
 @Repository
 public interface EnableAccountRepository extends CrudRepository<EnableAccount,String> {
-    Optional<EnableAccount> findByUuid(String uuid);
 }

@@ -24,7 +24,7 @@ jib {
     }
     to {
         image = "shinyenggwak/moija-auth"
-        tags = ["cloud-0.4.2"]
+        tags = ["cloud-0.4.3"]
     }
 }
 repositories {

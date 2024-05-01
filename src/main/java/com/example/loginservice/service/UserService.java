@@ -130,7 +130,7 @@ public class UserService implements UserDetailsService {
         enableRepository.save(EnableAccount.builder()
                 .uuid(uuid)
                 .userEmail(email)
-                .ttl(1000 * 60 * 20)
+                .ttl(60 * 20)
                 .build());
         return uuid;
     }
@@ -139,12 +139,13 @@ public class UserService implements UserDetailsService {
         //code = Arrays.toString(Base64.getDecoder().decode(code));
         code = code.trim();
         System.out.println(code);
-        Optional<EnableAccount> emailOp =  enableRepository.findByUuid(code);
+        Optional<EnableAccount> emailOp =  enableRepository.findById(code);
         //만료된 url의 경우 / 없는 userID나 디코딩이 안되는 경우 / 이미 유저인 경우
         if(emailOp.isEmpty()) {
             throw new BaseException(EXPIRED_VERIFY);
         }
         userRepository.updateEnable(emailOp.get().getUserEmail(),true);
+        enableRepository.deleteById(code);
     }
     @Transactional
     public JwtToken signIn(UserReq.UserLoginReq userLoginReq, HttpServletResponse response) throws BaseException {

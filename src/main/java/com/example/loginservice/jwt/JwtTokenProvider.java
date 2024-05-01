@@ -84,8 +84,9 @@ public class JwtTokenProvider {
     }
     public String generateRefreshToken(String accessToken) throws BaseException {
         long now = (new Date()).getTime();
+        long term = 3600;
 
-        Date refreshTokenExpiresIn = new Date(now + 36000000);
+        Date refreshTokenExpiresIn = new Date(now + term*1000);
         String refreshToken = Jwts.builder()
                 //내 도메인 넣어서 어디용인지 설정
                 .setIssuer(domain)
@@ -98,7 +99,7 @@ public class JwtTokenProvider {
                 .compact();
         //db저장용, ttl설정으로 인해 해당시간이 지나면 자동으로 사라짐.
         RefreshToken redisToken = RefreshToken.builder()
-                .ttl(2*86400000)
+                .ttl(term)
                 .token(refreshToken)
                 .authId(parseClaims(accessToken).getSubject())
                 .build();

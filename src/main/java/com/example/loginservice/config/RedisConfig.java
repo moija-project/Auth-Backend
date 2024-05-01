@@ -55,7 +55,8 @@ public class RedisConfig {
         return redisTemplate;
     }
 
-    @Bean public RedisMappingContext keyValueMappingContext() {
+    @Bean
+    public RedisMappingContext keyValueMappingContext() {
         return new RedisMappingContext( new MappingConfiguration(new MyIndexConfiguration(), new KeyspaceConfiguration()));
     }
     public static class MyIndexConfiguration extends IndexConfiguration {

@@ -25,7 +25,7 @@ public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        System.out.println("======AuthService ver. cloud-0.4.2======");
+        System.out.println("======AuthService ver. cloud-0.4.3======");
 
         return httpSecurity
                 // REST API이므로 basic auth 및 csrf 보안을 사용하지 않음
