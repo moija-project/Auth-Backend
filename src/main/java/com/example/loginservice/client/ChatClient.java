@@ -17,7 +17,7 @@ import java.util.List;
 public interface ChatClient {
 
     @PostMapping("/message/box")
-    Object loadTeamList(
+    public Object loadChatRoomList(
             @RequestBody String userId
     );
 }
