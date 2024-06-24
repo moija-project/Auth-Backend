@@ -128,7 +128,17 @@ public class PostController {
             @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo
     ) {
         return postClient.getList
-                (category,viewType,keyword,searchType,pageNo);
+                (category,viewType, pageNo);
+    }
+
+    @GetMapping("/search")
+    public Object loadSearchList(
+            @RequestParam(value = "view_type",required = false) String viewType,
+            @RequestParam(value = "keyword",required = false) String keyword,
+            @RequestParam(value = "search_type",required = false) String searchType,
+            @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo
+    ){
+        return postClient.getSearch(viewType,keyword,searchType,pageNo);
     }
 
     @GetMapping("/page")
@@ -234,5 +244,11 @@ public class PostController {
             @PathVariable(value = "postId") Long postId
     ) {
         return postClient.titlePost(postId);
+    }
+    @GetMapping("/picture/{postId}")
+    public Object picturePost(
+            @PathVariable(value = "postId") Long postId
+    ) {
+        return postClient.picturePost(postId);
     }
 }

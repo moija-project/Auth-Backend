@@ -28,7 +28,7 @@ public class MultiPartConfig {
 //    public SpringFormEncoder multipartFormEncoder() {
 //        return new SpringFormEncoder(new SpringEncoder(() -> new HttpMessageConverters(new RestTemplate().getMessageConverters())));
 //    }
-    @Bean
+    @Bean@Primary
     public SpringFormEncoder feignEncoder(JsonFormWriter jsonFormWriter) {
         return new SpringFormEncoder() {{
             MultipartFormContentProcessor processor = (MultipartFormContentProcessor) getContentProcessor(ContentType.MULTIPART);
@@ -40,7 +40,11 @@ public class MultiPartConfig {
     }
     @Bean
     public ObjectMapper objectMapper() {
-        return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS).registerModule(new JavaTimeModule()).configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        return new ObjectMapper()
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .registerModule(new JavaTimeModule())
+                .configure(SerializationFeature
+                        .WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
 

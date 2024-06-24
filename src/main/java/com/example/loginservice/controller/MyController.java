@@ -1,6 +1,8 @@
 package com.example.loginservice.controller;
 
 import com.example.loginservice.client.MyClient;
+import com.example.loginservice.client.MyJsonClient;
+import com.example.loginservice.dto.IdPageDTO;
 import com.example.loginservice.dto.MemListRes;
 import com.example.loginservice.dto.MypageReq;
 import com.example.loginservice.etity.Account;
@@ -26,13 +28,18 @@ public class MyController {
     @Autowired
     MyClient myClient;
     @Autowired
+    MyJsonClient myJsonClient;
+    @Autowired
     ScoreService scoreService;
     @PostMapping("/team/list")
     public Object loadTeamList(
-            @AuthenticationPrincipal Account account) throws BaseException {
+            @AuthenticationPrincipal Account account,
+            @RequestParam(name = "pageNo") Integer pageNo
+            ) throws BaseException {
         if(account == null)
             throw new BaseException(BaseResponseStatus.LOGIN_FIRST);
-        return myClient.loadTeamList(account.getUsername());
+        System.out.println(pageNo);
+        return myJsonClient.loadTeamList(new IdPageDTO(account.getUsername(), pageNo));
     }
 
     @PostMapping("/member/{postId}")
@@ -65,10 +72,12 @@ public class MyController {
     }
     @PostMapping("/send/list")
     public Object loadSendList(
-            @AuthenticationPrincipal Account account) throws BaseException {
+            @AuthenticationPrincipal Account account,
+            @RequestParam(name = "pageNo") Integer pageNo
+    ) throws BaseException {
         if(account == null)
             throw new BaseException(BaseResponseStatus.LOGIN_FIRST);
-        return myClient.loadSendList(account.getUsername());
+        return myJsonClient.loadSendList(new IdPageDTO(account.getUsername(),pageNo));
     }
 
     @PostMapping("/waiting/{waitingId}")
@@ -111,10 +120,12 @@ public class MyController {
 
     @PostMapping("/joined-team")
     public Object viewMyJoinTeam(
-            @AuthenticationPrincipal Account account) throws BaseException {
+            @AuthenticationPrincipal Account account,
+            @RequestParam(name = "pageNo") Integer pageNo
+    ) throws BaseException {
         if(account == null)
             throw new BaseException(BaseResponseStatus.LOGIN_FIRST);
-        return myClient.viewMyJoinTeam(account.getUsername());
+        return myJsonClient.viewMyJoinTeam(new IdPageDTO(account.getUsername(),pageNo));
     }
 
     @PostMapping("/profile")

@@ -45,9 +45,14 @@ public interface PostClient{
     @GetMapping(value = "/post/list", produces = "application/json")
     Object getList(@RequestParam(value = "category",required = false) String category,
                    @RequestParam(value = "view_type",required = false) String viewType,
-                   @RequestParam(value = "keyword",required = false) String keyword,
-                   @RequestParam(value = "search_type",required = false) String searchType,
                    @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo);
+    @GetMapping(value = "/post/search", produces = "application/json")
+    Object getSearch(
+            @RequestParam(value = "view_type",required = false) String viewType,
+            @RequestParam(value = "keyword",required = false) String keyword,
+            @RequestParam(value = "search_type",required = false) String searchType,
+            @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo
+    );
     @GetMapping(value = "/post/page", produces = "application/json")
     Object getViewPost(@RequestParam(value = "post_id") Long postId);
     @PostMapping(value = "/post/page", produces = "application/json")
@@ -99,5 +104,9 @@ public interface PostClient{
     @GetMapping("/post/title/{postId}")
     Object titlePost(
             @PathVariable(value = "postId")Long postId
+    );
+    @GetMapping("/post/picture/{postId}")
+    Object picturePost(
+            @PathVariable(value = "postId") Long postId
     );
 }

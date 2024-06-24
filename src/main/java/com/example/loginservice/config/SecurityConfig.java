@@ -25,7 +25,7 @@ public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        System.out.println("======AuthService ver. cloud-0.4.3======");
+        System.out.println("======AuthService ver. cloud-0.4.8======");
 
         return httpSecurity
                 // REST API이므로 basic auth 및 csrf 보안을 사용하지 않음
@@ -36,11 +36,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         // 해당 API에 대해서는 모든 요청을 허가
-                        .requestMatchers(HttpMethod.GET,"/post/list","/post/page","/post/title/**","/user/verify-email**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/post/list","/post/page","/post/search","/post/title/**","/post/picture/**","/user/verify-email**","/user/id-dup","/user/n-dup","/user/e-dup").permitAll()
                         .requestMatchers(HttpMethod.POST,"/user/login","/user/join").permitAll()
                         // USER 권한이 있어야 요청할 수 있음
                         .requestMatchers(HttpMethod.PATCH, "/my/**").hasRole("USER")
-                        .requestMatchers("/user/**","/post/**","/find/**","/my/**").hasRole("USER")
+                        .requestMatchers("/user/**","/post/**","/find/**","/my/**","/message/**").hasRole("USER")
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
                         .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요

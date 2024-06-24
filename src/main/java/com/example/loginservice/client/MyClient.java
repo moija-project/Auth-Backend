@@ -1,6 +1,7 @@
 package com.example.loginservice.client;
 
 import com.example.loginservice.config.MultiPartConfig;
+import com.example.loginservice.dto.IdPageDTO;
 import com.example.loginservice.dto.MemListRes;
 import com.example.loginservice.dto.MypageReq;
 import com.example.loginservice.global.BaseResponse;
@@ -19,10 +20,7 @@ import java.util.List;
 @Qualifier("my")
 public interface MyClient {
 
-    @PostMapping("/my/team/list")
-    Object loadTeamList(
-            @RequestBody String userId
-    );
+
     @PostMapping("/my/member/{postId}")
     List<MemListRes> loadMemberList(
             @PathVariable(value = "postId") Long postId,
@@ -37,11 +35,6 @@ public interface MyClient {
     );
     @PostMapping("/my/waiting/list")
     Object loadWaitingList(
-            @RequestBody String userId
-    );
-
-    @PostMapping("/my/send/list")
-    Object loadSendList(
             @RequestBody String userId
     );
 
@@ -72,11 +65,6 @@ public interface MyClient {
             @RequestBody String userId
     );
 
-    @PostMapping("/my/joined-team")
-
-    Object viewMyJoinTeam(
-            @RequestBody String userId
-    );
 
     @PostMapping("/my/profile")
 
