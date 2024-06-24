@@ -69,7 +69,7 @@ public class JwtTokenProvider {
     }
     private String doGenerateAccessToken(String id, Map<String,Object> claims){
         long now = (new Date()).getTime();
-        Date accessTokenExpiresIn = new Date(now + 240000);//4분 60*4*1000
+        Date accessTokenExpiresIn = new Date(now + 240000*5);//4분 -> 20분 60*4*1000
         return Jwts.builder()
                 .setHeaderParam("type","jwt")
                 //내 도메인 넣어서 어디용인지 설정
@@ -84,7 +84,7 @@ public class JwtTokenProvider {
     }
     public String generateRefreshToken(String accessToken) throws BaseException {
         long now = (new Date()).getTime();
-        long term = 3600;
+        long term = 3600 * 48; //1시간 -> 48시간
 
         Date refreshTokenExpiresIn = new Date(now + term*1000);
         String refreshToken = Jwts.builder()

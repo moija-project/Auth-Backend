@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisKeyValueAdapter;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.convert.KeyspaceConfiguration;
 import org.springframework.data.redis.core.convert.MappingConfiguration;
@@ -20,7 +21,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.util.Collections;
 
 @Configuration
-@EnableRedisRepositories(indexConfiguration = RedisConfig.MyIndexConfiguration.class)
+// enableKeyspaceEvents : indexed가 삭제되지 않는 이슈 해결 방안 -> ttl끝나면 index도 알람보내서 삭제
+@EnableRedisRepositories(indexConfiguration = RedisConfig.MyIndexConfiguration.class,enableKeyspaceEvents = RedisKeyValueAdapter.EnableKeyspaceEvents.ON_STARTUP)
 public class RedisConfig {
 
     @Autowired
