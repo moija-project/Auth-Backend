@@ -15,10 +15,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -30,14 +34,16 @@ import static com.example.loginservice.global.BaseResponseStatus.SUCCESS;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
+    Environment env;
+    @Autowired
     UserService userService;
 
     @GetMapping(value = "/verify-email")
-    public BaseResponse<Void> verifyEmail(
-            @RequestParam(value = "code")String code
-    ) throws BaseException {
+    public void verifyEmail(
+            @RequestParam(value = "code")String code, HttpServletResponse response
+    ) throws BaseException, IOException {
         userService.accountEnable(code);
-        return new BaseResponse<Void>(SUCCESS);
+        response.sendRedirect("http://"+env.getProperty("my.domain.name"));
     }
 
     @PostMapping("/login")
