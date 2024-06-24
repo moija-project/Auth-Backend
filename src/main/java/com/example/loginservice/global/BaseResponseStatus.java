@@ -51,7 +51,7 @@ public enum BaseResponseStatus {
     LOGIN_FIRST(false,4020,"먼저 로그인을 진행해주세요."),
     NOT_EDIT(false,4021,"변경할 필요가 없습니다."),
     NICKNAME_CHANGE_AVAILABLE(false, 4022, "닉네임 변경이 너무 잦습니다. 이전 변경으로 부터 3개월 이후에 시도해주세요."),
-    DUPLICATE_NICKNAME(false, 4023, "중복된 닉네임이 있습니다. 다른 닉네임을 설정해주세요."),
+    DUPLICATE_NICKNAME(false, 4023, "중복된 정보가 있습니다. 다른 것으로 설정해주세요."),
     NUM_FILE_OVER(false, 4024, "허가된 파일 개수를 넘었습니다."),
     FILE_FORMAT_ERROR(false, 4025,"사용 가능한 파일 형태가 아닙니다. (png,jpg,jpeg가능)" ),
     ALREADY_SCORED(false, 4026, "이미 점수를 부여했습니다." );
